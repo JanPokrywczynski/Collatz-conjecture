@@ -32,7 +32,8 @@ def showNormalPlot(number): #shows how many step it takes to reach 1 in range 1 
     number=int(number)
     names = [str(i) for i in range(1, number + 1)]
     values = [len(collatzConjecture(i)) for i in range(1, number + 1)]
-    plt.plot(names, values)
+    #plt.plot(names, values)
+    plt.plot(values,  "b-o", markersize=2, linewidth=0.5)
     plt.suptitle("Collatz conjecture")
     plt.ylabel("length")
     plt.xlabel("number")
@@ -48,13 +49,23 @@ def showPointPlot(number):
     number=int(number)
     names = [str(i) for i in range(1, number + 1)]
     values = [len(collatzConjecture(i)) for i in range(1, number + 1)]
-    plt.plot(names,values, "ro", markersize=2)
+    #plt.plot(names,values, "ro", markersize=2)
+    plt.plot(values, "ro", markersize=2)
+    plt.ylabel("length")
+    plt.xlabel("number")
+    x0, xmax = plt.xlim()
+    y0, ymax = plt.ylim()
+    data_width = xmax - x0
+    data_height = ymax - y0
+    text = f"numbers: {len(values)}\nlongest sequence: {max(values)}"
+    plt.text(x0 + data_width, y0 + data_height, text, fontsize=8)
     plt.show()
 
 def showNumberPlot(number): #shows every value number reaches in Collatz conjecture until it reaches 1
     values=collatzConjecture(number)
     names=[str(i) for i in range(1, len(values)+1)]
-    plt.plot(names, values, 'r-o')
+    #plt.plot(names, values, 'r-o')
+    plt.plot(values, 'r-o', label="borek")
     plt.suptitle(f"Collatz conjecture - number {number}")
     plt.ylabel("number")
     plt.xlabel("step")
@@ -64,11 +75,12 @@ def showNumberPlot(number): #shows every value number reaches in Collatz conject
     data_height=ymax-y0
     text=f"steps: {len(values)}\nmax value: {max(values)}"
     plt.text(x0+data_width,y0+data_height, text, fontsize=8)
+    plt.legend(bbox_to_anchor=(0.5,1.05))
     plt.show()
 
 x=input()
 # showBarPlot(x)
 # showNormalPlot(x)
-showPointPlot(x)
-# showNumberPlot(x)
+# showPointPlot(x)
+showNumberPlot(x)
 
