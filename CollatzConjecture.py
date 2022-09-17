@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 
 def collatzConjecture(number):
+    if number<=0:
+        return []
     result=[]
     number=int(number)
     while(number!=1):
@@ -31,33 +33,34 @@ def showBarPlot(number): #shows how many steps it takes to reach 1 in range 1 to
 def showNormalPlot(number): #shows how many step it takes to reach 1 in range 1 to number in Line chart
     number=int(number)
     names = [str(i) for i in range(1, number + 1)]
-    values = [len(collatzConjecture(i)) for i in range(1, number + 1)]
+    values = [len(collatzConjecture(i)) for i in range(0, number + 1)]
     #plt.plot(names, values)
     plt.plot(values,  "b-o", markersize=2, linewidth=0.5)
-    plt.suptitle("Collatz conjecture")
+    plt.suptitle(f"Collatz conjecture\n0 - {number}")
     plt.ylabel("length")
     plt.xlabel("number")
     x0, xmax = plt.xlim()
     y0, ymax = plt.ylim()
     data_width = xmax - x0
     data_height = ymax - y0
-    text = f"max value:\n  {values.index(max(values))+1}"
+    text = f"  longest sequence: {max(values)}\n  for number: {values.index(max(values))}"
     plt.text(x0 + data_width, y0 + data_height, text, fontsize=8)
     plt.show()
 
 def showPointPlot(number):
     number=int(number)
     names = [str(i) for i in range(1, number + 1)]
-    values = [len(collatzConjecture(i)) for i in range(1, number + 1)]
+    values = [len(collatzConjecture(i)) for i in range(0, number + 1)]
     #plt.plot(names,values, "ro", markersize=2)
     plt.plot(values, "ro", markersize=2)
+    plt.suptitle(f"Collatz conjecture\n0 - {number}")
     plt.ylabel("length")
     plt.xlabel("number")
     x0, xmax = plt.xlim()
     y0, ymax = plt.ylim()
     data_width = xmax - x0
     data_height = ymax - y0
-    text = f"numbers: {len(values)}\nlongest sequence: {max(values)}"
+    text = f"  longest sequence: {max(values)}\n  for number: {values.index(max(values))}"
     plt.text(x0 + data_width, y0 + data_height, text, fontsize=8)
     plt.show()
 
@@ -80,7 +83,6 @@ def showNumberPlot(number): #shows every value number reaches in Collatz conject
 
 x=input()
 # showBarPlot(x)
-# showNormalPlot(x)
-# showPointPlot(x)
-showNumberPlot(x)
-
+showNormalPlot(x)
+showPointPlot(x)
+# showNumberPlot(x)
